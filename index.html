@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cat Chat GPT</title>
+    <style>
+        body {
+            display: flex;
+        }
+
+        #left-column {
+            width: 30%;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        #chat {
+            width: 70%;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="left-column">
+        <h2>Chat History</h2>
+        <ul id="history-list">
+            <li>You: Hello, Cat GPT!</li>
+            <li>Cat GPT: Maow</li>
+        </ul>
+    </div>
+    <div id="chat">
+        <h1>Cat Chat GPT</h1>
+        <div id="chat-messages">
+            <p>Cat GPT: Maow</p>
+        </div>
+        <input type="text" id="userInput" placeholder="Type a message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        const catSounds = ["Maow", "Purr", "Hiss", "Meow", "Yowl", "Chirp"];
+
+        function getRandomCatSound() {
+            const randomIndex = Math.floor(Math.random() * catSounds.length);
+            return catSounds[randomIndex];
+        }
+
+        function addMessage(userMessage, catMessage) {
+            const chatMessages = document.getElementById("chat-messages");
+            const userParagraph = document.createElement("p");
+            userParagraph.textContent = `You: ${userMessage}`;
+            chatMessages.appendChild(userParagraph);
+
+            const catParagraph = document.createElement("p");
+            catParagraph.textContent = `Cat GPT: ${catMessage}`;
+            chatMessages.appendChild(catParagraph);
+
+            // Update the history list in the left column
+            const historyList = document.getElementById("history-list");
+            const listItem = document.createElement("li");
+            listItem.textContent = `You: ${userMessage}`;
+            historyList.appendChild(listItem);
+            const catListItem = document.createElement("li");
+            //catListItem.textContent = `Cat GPT: ${catMessage}`;
+            //historyList.appendChild(catListItem);
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById("userInput");
+            const userMessage = userInput.value;
+            if (userMessage.trim() !== "") {
+                const catMessage = getRandomCatSound();
+                addMessage(userMessage, catMessage);
+                userInput.value = "";
+            }
+        }
+
+        // Example usage
+        addMessage("Hello, Cat GPT!", "Maow");
+        addMessage("How are you today?", "Meow");
+        addMessage("Tell me a joke.", "Hiss");
+    </script>
+</body>
+</html>
